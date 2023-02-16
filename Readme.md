@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Евгений Ильичев](https://up.htmlacademy.ru/javascript/28/user/775445).
-* Наставник: `Неизвестно`.
+* Наставник: [Михаил Карямин](https://up.htmlacademy.ru/javascript/28/user/959581).
 
 ---
 
