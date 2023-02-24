@@ -94,5 +94,5 @@ const createItem = () => ({
   comments: Array.from({length: getRandomInteger(MIN_COUNT_COMMENTS, MAX_COUNT_COMMENTS)}, createComment)
 });
 
+// eslint-disable-next-line no-unused-vars
 const testData = Array.from({length: COUNT_ITEMS}, createItem);
-console.log(testData);
