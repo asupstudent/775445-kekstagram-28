@@ -1,21 +1,21 @@
 import {createIdGenerator, createCircleGenerator, getRandomInteger, getRandomArrayElement} from './utils.js';
 
 const COUNT_ITEMS = 25;
-const AVATAR_RANGE = {
-  min: 1,
-  max: 6
+const avatarRange = {
+  MIN: 1,
+  MAX: 6
 };
-const LIKES_RANGE = {
-  min: 15,
-  max: 200
+const likesRange = {
+  MIN: 15,
+  MAX: 200
 };
-const COMMENTS_RANGE = {
-  min: 3,
-  max: 15
+const commentsRange = {
+  MIN: 3,
+  MAX: 15
 };
-const COMMENT_MESSAGE_RANGE = {
-  min: 1,
-  max: 2
+const commentMessageRange = {
+  MIN: 1,
+  MAX: 2
 };
 const MIN_ID_COMMENT = 100;
 const DESCRIPTIONS = [
@@ -66,12 +66,12 @@ const generateItemPathId = createIdGenerator();
 const generateDescriptionId = createCircleGenerator(DESCRIPTIONS.length);
 const generateCommentId = createIdGenerator(MIN_ID_COMMENT);
 
-const getCommentMessage = () => Array.from({length: getRandomInteger(COMMENT_MESSAGE_RANGE.min, COMMENT_MESSAGE_RANGE.max)},
+const getCommentMessage = () => Array.from({length: getRandomInteger(commentMessageRange.MIN, commentMessageRange.MAX)},
   () => getRandomArrayElement(MESSAGES)).join(' ');
 
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(AVATAR_RANGE.min, AVATAR_RANGE.max)}.svg`,
+  avatar: `img/avatar-${getRandomInteger(avatarRange.MIN, avatarRange.MAX)}.svg`,
   message: getCommentMessage(),
   name: getRandomArrayElement(NAMES)
 });
@@ -80,8 +80,9 @@ const createItem = () => ({
   id: generateItemId(),
   url: `photos/${generateItemPathId()}.jpg`,
   description: DESCRIPTIONS[generateDescriptionId()],
-  likes: getRandomInteger(LIKES_RANGE.min, LIKES_RANGE.max),
-  comments: Array.from({length: getRandomInteger(COMMENTS_RANGE.min, COMMENTS_RANGE.max)}, createComment)
+  likes: getRandomInteger(likesRange.MIN, likesRange.MAX),
+  comments: Array.from({length: getRandomInteger(commentsRange.MIN, commentsRange.MAX)}, createComment)
 });
 
-export const getItems = Array.from({length: COUNT_ITEMS}, createItem);
+const getItems = () => Array.from({length: COUNT_ITEMS}, createItem);
+export{getItems};
