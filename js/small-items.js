@@ -1,13 +1,9 @@
-import {getItems} from './data.js';
-
 //Место куда будем добавлять элементы
 const itemsContainer = document.querySelector('.pictures');
 //Заготовка элемента для заполнения данными
 const itemTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-//Получаем данные
-const usersItems = getItems();
 
 //Функция создает элемент с данными
 const createItem = (data) => {
@@ -24,7 +20,7 @@ const createItem = (data) => {
 };
 
 //Функция для создания и отрисовки элементов
-const renderItems = (items) => {
+export const renderSmallItems = (items) => {
   const fragment = document.createDocumentFragment();
   items.forEach((item) => {
     const element = createItem(item);
@@ -32,6 +28,3 @@ const renderItems = (items) => {
   });
   itemsContainer.append(fragment);
 };
-
-//Создать и вывести элементы на страницу
-renderItems(usersItems);

@@ -67,3 +67,9 @@ export const getRandomInteger = (min, max) => {
 export const getRandomArrayElement = (elements) => (
   elements[getRandomInteger(0, elements.length - 1)]
 );
+
+//Функция проверки нажатой клавиши Esc
+export const isEscapeKey = (evt) => evt.key === 'Escape';
+
+//Функция проверки нажатой клавиши Enter
+export const isEnterKey = (evt) => evt.key === 'Enter';
