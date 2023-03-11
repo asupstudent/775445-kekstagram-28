@@ -6,12 +6,13 @@ const itemTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 //Функция создает элемент с данными
-const createItem = (data) => {
-  const {url, description, likes, comments} = data;
+const createSmallItem = (data) => {
+  const {id, url, description, likes, comments} = data;
   const userItem = itemTemplate.cloneNode(true);
   const userItemImg = userItem.querySelector('.picture__img');
   userItemImg.src = url;
   userItemImg.alt = description;
+  userItemImg.id = id;
   const userItemComments = userItem.querySelector('.picture__comments');
   userItemComments.textContent = comments.length;
   const userItemLikes = userItem.querySelector('.picture__likes');
@@ -23,7 +24,7 @@ const createItem = (data) => {
 export const renderSmallItems = (items) => {
   const fragment = document.createDocumentFragment();
   items.forEach((item) => {
-    const element = createItem(item);
+    const element = createSmallItem(item);
     fragment.append(element);
   });
   itemsContainer.append(fragment);
