@@ -14,4 +14,10 @@ const onPictureClick = (evt) => {
     showPopup(usersItems[evt.target.id - 1]);
   }
 };
+const onPictureKeydown = (evt) => {
+  if(evt.target.closest('.picture')) {
+    showPopup(usersItems[evt.target.id - 1]);
+  }
+};
 pictures.addEventListener('click', onPictureClick);
+pictures.addEventListener('keydown', onPictureKeydown);
