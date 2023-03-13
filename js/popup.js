@@ -1,4 +1,4 @@
-import {renderItemDetails, clearItemDetails} from './big-items.js';
+import {renderItemDetails} from './big-items.js';
 import {isEscapeKey, isEnterKey} from './utils.js';
 
 const body = document.querySelector('body');
@@ -24,7 +24,6 @@ export const showPopup = (itemData) => {
   body.classList.add('.modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   renderItemDetails(itemData, itemOpenDialogElement);
-  clearItemDetails();
 };
 
 itemCloseDialogElement.addEventListener('click', () => {
