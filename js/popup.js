@@ -15,13 +15,13 @@ const onDocumentKeydown = (evt) => {
 
 function hidePopup () {
   itemOpenDialogElement.classList.add('hidden');
-  body.classList.remove('.modal-open');
+  body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 export const showPopup = (itemData) => {
   itemOpenDialogElement.classList.remove('hidden');
-  body.classList.add('.modal-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   renderItemDetails(itemData, itemOpenDialogElement);
 };
