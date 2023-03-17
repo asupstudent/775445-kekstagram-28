@@ -73,3 +73,5 @@ export const isEscapeKey = (evt) => evt.key === 'Escape';
 
 //Функция проверки нажатой клавиши Enter
 export const isEnterKey = (evt) => evt.key === 'Enter';
+
+

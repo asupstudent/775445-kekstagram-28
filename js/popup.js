@@ -1,4 +1,4 @@
-import {renderItemDetails} from './big-items.js';
+import {renderItemDetails, resetComments} from './big-items.js';
 import {isEscapeKey, isEnterKey} from './utils.js';
 
 const body = document.querySelector('body');
@@ -15,13 +15,14 @@ const onDocumentKeydown = (evt) => {
 
 function hidePopup () {
   itemOpenDialogElement.classList.add('hidden');
-  body.classList.remove('.modal-open');
+  body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  resetComments();
 }
 
 export const showPopup = (itemData) => {
   itemOpenDialogElement.classList.remove('hidden');
-  body.classList.add('.modal-open');
+  body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
   renderItemDetails(itemData, itemOpenDialogElement);
 };
