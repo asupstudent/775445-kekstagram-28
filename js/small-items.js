@@ -12,7 +12,7 @@ const createSmallItem = (data) => {
   const userItemImg = userItem.querySelector('.picture__img');
   userItemImg.src = url;
   userItemImg.alt = description;
-  userItemImg.id = id;
+  userItemImg.dataset.thumbnailId = id;
   const userItemComments = userItem.querySelector('.picture__comments');
   userItemComments.textContent = comments.length;
   const userItemLikes = userItem.querySelector('.picture__likes');
