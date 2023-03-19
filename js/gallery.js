@@ -1,6 +1,6 @@
 import {getItems} from './data.js';
 import {renderSmallItems} from './small-items.js';
-import {showPopup} from './popup.js';
+import {showPopup} from './form-big-item.js';
 
 //Получаем данные
 const usersItems = getItems();
