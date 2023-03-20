@@ -4,9 +4,9 @@ import {isEnterKey, isEscapeKey} from './utils.js';
 const uploadButton = document.querySelector('#upload-file');
 const modalPopup = document.querySelector('.img-upload__overlay');
 const closePopup = document.querySelector('#upload-cancel');
-const hashtagInput = modalPopup.querySelector('[name="hashtags"]');
-const commentInput = modalPopup.querySelector('[name="description"]');
 const uploadForm = document.querySelector('#upload-select-image');
+const hashtagInput = uploadForm.querySelector('[name="hashtags"]');
+const commentInput = uploadForm.querySelector('[name="description"]');
 const submitButton = document.querySelector('.img-upload__submit');
 
 const disableEsc = (evt) => {
@@ -29,11 +29,21 @@ const clearInputs = () => {
   commentInput.value = '';
 };
 
+const removeTextErrors = () => {
+  const textError = uploadForm.querySelectorAll('.text__error');
+  if(textError) {
+    textError.forEach((item) => {
+      item.style.display = 'none';
+    });
+  }
+};
+
 const hidePopup = () => {
   modalPopup.classList.add('hidden');
   document.body.classList.remove('modal-open');
   deleteListeners();
   clearInputs();
+  removeTextErrors();
 };
 
 const onDocumentKeydown = (evt) => {
@@ -86,13 +96,27 @@ const showPopup = () => {
 const submitForm = () => {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    validate();
-    disabledSubmitButton(true);
   });
 };
 
 uploadButton.addEventListener('change', () => {
   showPopup();
+});
+
+hashtagInput.addEventListener('input', () => {
+  if(validate()) {
+    disabledSubmitButton(false);
+  } else {
+    disabledSubmitButton(true);
+  }
+});
+
+commentInput.addEventListener('input', () => {
+  if(validate()) {
+    disabledSubmitButton(false);
+  } else {
+    disabledSubmitButton(true);
+  }
 });
 
 submitForm();

@@ -1,5 +1,11 @@
 //Функция для проверки длины строки.
-export const checkLength = (text, countCharacters) => text.length <= countCharacters;
+export const checkLength = (array, maxLength) => array.length <= maxLength;
+
+export const checkRepeats = (array) => {
+  const toUpper = array.map((item) => item.toUpperCase());
+  const arrayNoRepeats = new Set(toUpper);
+  return arrayNoRepeats.size === toUpper.length;
+};
 
 //Функция для проверки, является ли строка палиндромом.
 export const isPalindrome = (text) => {

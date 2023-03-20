@@ -673,6 +673,10 @@ main {
  * Блок добавления хэштегов и комментария к изображению
  */
 
+.img-upload__field-wrapper {
+  position: relative;
+}
+
 .text {
   margin: 0;
   padding: 0;
@@ -680,6 +684,14 @@ main {
 
   text-align: center;
   border: none;
+}
+
+.text__error {
+  position: absolute;
+  right: 69px;
+  top: -19px;
+  color: tomato;
+  font-size: 12px;
 }
 
 .text__hashtags {
