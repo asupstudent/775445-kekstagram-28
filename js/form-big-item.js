@@ -1,4 +1,4 @@
-import {renderItemDetails, resetComments} from './big-items.js';
+import {renderItemDetails, resetComments} from './big-item.js';
 import {isEscapeKey, isEnterKey} from './utils.js';
 
 const body = document.querySelector('body');
