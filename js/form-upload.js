@@ -1,4 +1,4 @@
-import {validate} from './validation.js';
+import {validate, reset} from './validation.js';
 import {isEnterKey, isEscapeKey} from './utils.js';
 
 const uploadButton = document.querySelector('#upload-file');
@@ -29,21 +29,12 @@ const clearInputs = () => {
   commentInput.value = '';
 };
 
-const removeTextErrors = () => {
-  const textError = uploadForm.querySelectorAll('.text__error');
-  if(textError) {
-    textError.forEach((item) => {
-      item.style.display = 'none';
-    });
-  }
-};
-
 const hidePopup = () => {
   modalPopup.classList.add('hidden');
   document.body.classList.remove('modal-open');
   deleteListeners();
   clearInputs();
-  removeTextErrors();
+  reset();
 };
 
 const onDocumentKeydown = (evt) => {

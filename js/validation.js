@@ -22,9 +22,13 @@ const pristine = new Pristine(uploadForm, {
   errorTextClass: 'text__error'
 });
 
-const checkHasHash = () => hashtagInput.value !== '' ? hashtagInput.value.trim().split(' ').every((hashtag) => HASHTAG_REGEX.test(hashtag)) : true;
-const checkMaxQuantity = () => checkLength(hashtagInput.value.split(' '), HASHTAG_MAX_QUANTITY);
-const constNoRepetitions = () => checkRepeats(hashtagInput.value.split(' '));
+const checkHasHash = () => hashtagInput.value !== '' ? hashtagInput.value
+  .trim()
+  .split(' ')
+  .filter(Boolean)
+  .every((hashtag) => HASHTAG_REGEX.test(hashtag)) : true;
+const checkMaxQuantity = () => checkLength(hashtagInput.value.split(' ').filter(Boolean), HASHTAG_MAX_QUANTITY);
+const constNoRepetitions = () => checkRepeats(hashtagInput.value.split(' ').filter(Boolean));
 const checkMaxLengthComment = () => checkLength(commentInput.value, COMMENT_MAX_LENGTH);
 
 pristine.addValidator(hashtagInput, checkHasHash, MESSAGES.hasHash);
@@ -33,3 +37,4 @@ pristine.addValidator(hashtagInput, constNoRepetitions, MESSAGES.noRepetitions);
 pristine.addValidator(commentInput, checkMaxLengthComment, MESSAGES.maxLengthComment);
 
 export const validate = () => pristine.validate();
+export const reset = () => pristine.reset();
