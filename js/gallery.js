@@ -17,4 +17,3 @@ const onPictureClick = (evt) => {
 };
 
 pictures.addEventListener('click', onPictureClick);
-

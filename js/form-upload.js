@@ -1,5 +1,6 @@
 import {validate, reset} from './validation.js';
 import {isEnterKey, isEscapeKey} from './utils.js';
+import {resetScale} from './scale.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const modalPopup = document.querySelector('.img-upload__overlay');
@@ -32,6 +33,7 @@ const clearInputs = () => {
 const hidePopup = () => {
   modalPopup.classList.add('hidden');
   document.body.classList.remove('modal-open');
+  resetScale();
   deleteListeners();
   clearInputs();
   reset();
