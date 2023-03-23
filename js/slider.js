@@ -53,7 +53,7 @@ const sliderElement = document.querySelector('.effect-level__slider');
 const sliderContainerElement = document.querySelector('.img-upload__effect-level');
 const valueElement = document.querySelector('.effect-level__value');
 const fieldsetElement = document.querySelector('.img-upload__effects');
-const DEFAULT_EFFECT = EFFECTS.find((effect) => effect.name === 'none');
+const defaultEffect = EFFECTS.find((effect) => effect.name === 'none');
 
 const showSlider = () => {
   sliderContainerElement.classList.remove('hidden');
@@ -79,7 +79,7 @@ const setSlider = (name, choice) => {
 };
 
 export const resetSlider = () => {
-  sliderElement.noUiSlider.set(DEFAULT_EFFECT.max);
+  sliderElement.noUiSlider.set(defaultEffect.max);
   imagePreview.style.filter = '';
   imagePreview.classList.add('effects__preview--none');
   valueElement.value = 100;
@@ -87,11 +87,11 @@ export const resetSlider = () => {
 
 noUiSlider.create(sliderElement, {
   range: {
-    min: DEFAULT_EFFECT.min,
-    max: DEFAULT_EFFECT.max,
+    min: defaultEffect.min,
+    max: defaultEffect.max,
   },
-  start: DEFAULT_EFFECT.max,
-  step: DEFAULT_EFFECT.step,
+  start: defaultEffect.max,
+  step: defaultEffect.step,
   connect: 'lower',
   format: {
     to: function (value) {

@@ -1,6 +1,6 @@
 import {validate, reset} from './validation.js';
 import {isEnterKey, isEscapeKey} from './utils.js';
-import {resetScale} from './scale.js';
+import {setScale, resetScale} from './scale.js';
 import {resetSlider} from './slider.js';
 
 const uploadButton = document.querySelector('#upload-file');
@@ -86,6 +86,7 @@ const showPopup = () => {
   modalPopup.classList.remove('hidden');
   document.body.classList.add('modal-open');
   addListeners();
+  setScale();
 };
 
 const submitForm = () => {

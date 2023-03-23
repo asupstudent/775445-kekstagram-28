@@ -13,14 +13,14 @@ const scaleBigger = scaleControls.querySelector('.scale__control--bigger');
 const scaleValue = scaleControls.querySelector('.scale__control--value');
 const imagePreview = document.querySelector('.img-upload__preview img');
 
-const setValuesScale = (transform, isDefault) => {
-  if(isDefault) {
-    imagePreview.style.transform = transform;
-    scaleValue.value = `${scaleOptions.BY_DEFAULT}%`;
-  } else {
-    scaleValue.value = `${transform}%`;
-    imagePreview.style.transform = `scale(${transform / 100})`;
-  }
+const setValuesScale = (transform) => {
+  scaleValue.value = `${transform}%`;
+  imagePreview.style.transform = `scale(${transform / 100})`;
+};
+
+const resetValuesScale = () => {
+  imagePreview.style.transform = '';
+  scaleValue.value = `${scaleOptions.BY_DEFAULT}%`;
 };
 
 const getZoomValue = () => {
@@ -54,13 +54,13 @@ const removeListeners = () => {
   scaleBigger.removeEventListener('click', setScaleBigger);
 };
 
-function setScale() {
-  setValuesScale('',true);
+export function setScale() {
+  resetValuesScale();
   addListeners();
 }
 
 export const resetScale = () => {
-  setValuesScale('',true);
+  resetValuesScale();
   removeListeners();
 };
 
