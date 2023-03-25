@@ -1,12 +1,14 @@
 import {getItems} from './data.js';
 import {renderSmallItems} from './small-items.js';
-import {showPopup} from './form-big-item.js';
+import {initFormBigItem, showPopup} from './form-big-item.js';
+import {initFormUpload} from './form-upload.js';
 
 //Получаем данные
 const usersItems = getItems();
 
 //Создать и вывести элементы на страницу
 renderSmallItems(usersItems);
+initFormBigItem();
 
 const pictures = document.querySelector('.pictures');
 const onPictureClick = (evt) => {
@@ -17,3 +19,5 @@ const onPictureClick = (evt) => {
 };
 
 pictures.addEventListener('click', onPictureClick);
+
+initFormUpload();

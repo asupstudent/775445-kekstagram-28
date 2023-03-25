@@ -1,7 +1,7 @@
-import {validate, reset} from './validation.js';
+import {validate, reset, initValidation} from './validation.js';
 import {isEnterKey, isEscapeKey} from './utils.js';
-import {setScale, resetScale} from './scale.js';
-import {resetSlider} from './slider.js';
+import {initScale, resetScale} from './scale.js';
+import {initSlider, resetSlider} from './slider.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const modalPopup = document.querySelector('.img-upload__overlay');
@@ -86,33 +86,30 @@ const showPopup = () => {
   modalPopup.classList.remove('hidden');
   document.body.classList.add('modal-open');
   addListeners();
-  setScale();
+  initScale();
+  initSlider();
 };
 
-const submitForm = () => {
+export const initFormUpload = () => {
+  initValidation();
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
+  uploadButton.addEventListener('change', () => {
+    showPopup();
+  });
+  hashtagInput.addEventListener('input', () => {
+    if(validate()) {
+      disabledSubmitButton(false);
+    } else {
+      disabledSubmitButton(true);
+    }
+  });
+  commentInput.addEventListener('input', () => {
+    if(validate()) {
+      disabledSubmitButton(false);
+    } else {
+      disabledSubmitButton(true);
+    }
+  });
 };
-
-uploadButton.addEventListener('change', () => {
-  showPopup();
-});
-
-hashtagInput.addEventListener('input', () => {
-  if(validate()) {
-    disabledSubmitButton(false);
-  } else {
-    disabledSubmitButton(true);
-  }
-});
-
-commentInput.addEventListener('input', () => {
-  if(validate()) {
-    disabledSubmitButton(false);
-  } else {
-    disabledSubmitButton(true);
-  }
-});
-
-submitForm();
