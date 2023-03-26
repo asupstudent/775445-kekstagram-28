@@ -9,7 +9,7 @@ export const initGallery = (items) => {
   const onPictureClick = (evt) => {
     if(evt.target.closest('.picture')) {
       const currentItem = items.find((item) => item.id === +evt.target.dataset.thumbnailId);
-      showPopup(items[currentItem.id - 1]);
+      showPopup(items[currentItem.id]);
     }
   };
   pictures.addEventListener('click', onPictureClick);
