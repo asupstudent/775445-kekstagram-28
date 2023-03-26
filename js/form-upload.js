@@ -31,7 +31,7 @@ const clearInputs = () => {
   commentInput.value = '';
 };
 
-const hidePopup = () => {
+export const hidePopup = () => {
   modalPopup.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetScale();
@@ -90,26 +90,17 @@ const showPopup = () => {
   initSlider();
 };
 
-export const initFormUpload = () => {
+export const initFormUpload = (onSuccess) => {
   initValidation();
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    const isValid = validate();
+    if(isValid) {
+      disabledSubmitButton(true);
+      onSuccess();
+    }
   });
   uploadButton.addEventListener('change', () => {
     showPopup();
-  });
-  hashtagInput.addEventListener('input', () => {
-    if(validate()) {
-      disabledSubmitButton(false);
-    } else {
-      disabledSubmitButton(true);
-    }
-  });
-  commentInput.addEventListener('input', () => {
-    if(validate()) {
-      disabledSubmitButton(false);
-    } else {
-      disabledSubmitButton(true);
-    }
   });
 };

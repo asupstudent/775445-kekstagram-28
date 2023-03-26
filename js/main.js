@@ -1,11 +1,9 @@
 import {getData} from './api.js';
 import {initGallery} from './gallery.js';
-import {initFormUpload} from './form-upload.js';
+import {initFormUpload, hidePopup} from './form-upload.js';
 
 getData(
-  (items) => {
-    initGallery(items);
-  }
+  initGallery
 );
 
-initFormUpload();
+initFormUpload(hidePopup);
