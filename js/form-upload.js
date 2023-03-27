@@ -1,7 +1,13 @@
-import {validate, reset, initValidation} from './validation.js';
-import {isEnterKey, isEscapeKey} from './utils.js';
+import {validate, reset} from './validation.js';
+import {isEnterKey, isEscapeKey, showAlert} from './utils.js';
 import {initScale, resetScale} from './scale.js';
 import {initSlider, resetSlider} from './slider.js';
+import {sendData} from './api.js';
+
+const SubmitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикую...'
+};
 
 const uploadButton = document.querySelector('#upload-file');
 const modalPopup = document.querySelector('.img-upload__overlay');
@@ -78,9 +84,16 @@ function deleteListeners() {
   commentInput.removeEventListener('blur', onInputsBlur);
 }
 
-const disabledSubmitButton = (status) => {
-  submitButton.disabled = status;
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
 };
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
 
 const showPopup = () => {
   modalPopup.classList.remove('hidden');
@@ -90,14 +103,21 @@ const showPopup = () => {
   initSlider();
 };
 
-export const initFormUpload = (onSuccess) => {
-  initValidation();
+export const initFormUpload = (startValidator, onSuccess) => {
+  startValidator();
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = validate();
     if(isValid) {
-      disabledSubmitButton(true);
-      onSuccess();
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch(
+          (err) => {
+            showAlert(err.message);
+          }
+        )
+        .finally(unblockSubmitButton);
     }
   });
   uploadButton.addEventListener('change', () => {
