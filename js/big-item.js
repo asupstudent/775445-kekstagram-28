@@ -3,7 +3,7 @@ const loadingMoreElement = document.querySelector('.comments-loader');
 const currentCounterElement = document.querySelector('.comments-current');
 const COMMENT_COUNT = 5;
 let commentMarker = COMMENT_COUNT;
-let itemComments; //ВРЕМЕННО itemComments
+let itemComments; //ВРЕМЕННО itemComments, БУДЕМ ПЕРЕДЕЛЫВАТЬ
 
 const createComment = (comment) => {
   const {avatar, name, message} = comment;
