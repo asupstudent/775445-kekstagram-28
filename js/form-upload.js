@@ -1,13 +1,17 @@
 import {validate, reset} from './validation.js';
-import {isEnterKey, isEscapeKey, showAlert} from './utils.js';
+import {isEnterKey, isEscapeKey} from './utils.js';
 import {initScale, resetScale} from './scale.js';
 import {initSlider, resetSlider} from './slider.js';
 import {sendData} from './api.js';
+import {openMessage, checkTypeMessage} from './message.js';
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',
   SENDING: 'Публикую...'
 };
+
+const SUCCESS_TYPE_MESSAGE = 'success';
+const ERROR_TYPE_MESSAGE = 'error';
 
 const uploadButton = document.querySelector('#upload-file');
 const modalPopup = document.querySelector('.img-upload__overlay');
@@ -48,7 +52,7 @@ export const hidePopup = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !checkTypeMessage()) {
     evt.preventDefault();
     hidePopup();
   }
@@ -112,9 +116,10 @@ export const initFormUpload = (startValidator, onSuccess) => {
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
+        .then(() => openMessage(SUCCESS_TYPE_MESSAGE))
         .catch(
-          (err) => {
-            showAlert(err.message);
+          () => {
+            openMessage(ERROR_TYPE_MESSAGE);
           }
         )
         .finally(unblockSubmitButton);
