@@ -1,4 +1,4 @@
-import {renderItemDetails, resetComments} from './big-item.js';
+import {renderItemDetails, showMoreButton} from './big-item.js';
 import {isEscapeKey, isEnterKey} from './utils.js';
 
 const body = document.querySelector('body');
@@ -16,7 +16,7 @@ function hidePopup () {
   itemOpenDialogElement.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  resetComments();
+  showMoreButton();
 }
 
 export const showPopup = (itemData) => {

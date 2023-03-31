@@ -85,6 +85,10 @@ export const resetSlider = () => {
   valueElement.value = 100;
 };
 
+export const destroySlider = () => {
+  sliderElement.noUiSlider.destroy();
+};
+
 export const initSlider = () => {
   noUiSlider.create(sliderElement, {
     range: {

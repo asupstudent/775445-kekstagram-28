@@ -14,10 +14,7 @@ getData()
   })
   .then(() => {
     initGallery(getState());
-    changeFilter(debounce(
-      () => initGallery(getState()),
-      RENDER_DELAY,
-    ));
+    changeFilter(debounce(() => initGallery(getState()), RENDER_DELAY));
   })
   .then(
     () => {
