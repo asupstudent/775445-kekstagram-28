@@ -1,7 +1,7 @@
 import {validate, reset} from './validation.js';
 import {isEnterKey, isEscapeKey} from './utils.js';
 import {initScale, resetScale} from './scale.js';
-import {destroySlider, initSlider} from './slider.js';
+import {destroySlider, initSlider, resetSlider} from './slider.js';
 import {sendData} from './api.js';
 import {openMessage, checkTypeMessage} from './message.js';
 
@@ -47,6 +47,7 @@ export const hidePopup = () => {
   modalPopup.classList.add('hidden');
   document.body.classList.remove('modal-open');
   resetScale();
+  resetSlider();
   destroySlider();
   deleteListeners();
   clearInputs();
@@ -136,7 +137,7 @@ export const initFormUpload = (startValidator, onSuccess) => {
       effectsPreview.forEach((effect) => {
         effect.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
       });
+      showPopup();
     }
-    showPopup();
   });
 };

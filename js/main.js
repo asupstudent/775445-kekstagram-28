@@ -15,12 +15,8 @@ getData()
   .then(() => {
     initGallery(getState());
     changeFilter(debounce(() => initGallery(getState()), RENDER_DELAY));
+    showFilter();
   })
-  .then(
-    () => {
-      showFilter();
-    }
-  )
   .catch((err) => {
     showAlert(err.message);
   });
