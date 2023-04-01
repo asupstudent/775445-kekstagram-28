@@ -4,16 +4,6 @@ import {isEscapeKey, isEnterKey} from './utils.js';
 const body = document.querySelector('body');
 const openDialogElement = document.querySelector('.big-picture');
 const closeDialogElement = document.querySelector('.big-picture__cancel');
-const commentList = document.querySelector('.social__comments');
-
-const createLoadMoreButton = () => {
-  const loadMoreButton = document.createElement('button');
-  loadMoreButton.setAttribute('type', 'button');
-  loadMoreButton.classList.add('social__comments-loader');
-  loadMoreButton.classList.add('comments-loader');
-  loadMoreButton.textContent = 'Загрузить еще';
-  commentList.after(loadMoreButton);
-};
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -33,7 +23,6 @@ export const showFormBigItem = (item) => {
   openDialogElement.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  createLoadMoreButton();
   renderItemDetails(item, openDialogElement);
 };
 

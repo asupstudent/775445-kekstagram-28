@@ -36,6 +36,15 @@ const addComment = (comment) => {
 //Вычислить счетчик загруженных комментариев
 const calcCounterLoadedComments = (marker, length) => marker > length ? length : marker;
 
+const createLoadMoreButton = () => {
+  const loadMoreButton = document.createElement('button');
+  loadMoreButton.setAttribute('type', 'button');
+  loadMoreButton.classList.add('social__comments-loader');
+  loadMoreButton.classList.add('comments-loader');
+  loadMoreButton.textContent = 'Загрузить еще';
+  commentList.after(loadMoreButton);
+};
+
 //Скрыть кнопку загрузки скрытых комментариев (Загрузить еще)
 const hideLoadMoreButton = () => {
   document.querySelector('.comments-loader').classList.add('hidden');
@@ -73,6 +82,7 @@ const renderInvisibleComments = (comments) => {
     addComment(comment);
   });
   counterRenderedCommentsElement.textContent = calcCounterLoadedComments(commentList.childNodes.length, comments.length);
+  createLoadMoreButton();
   document.querySelector('.comments-loader').addEventListener('click', onLoadMore(comments));
 };
 
