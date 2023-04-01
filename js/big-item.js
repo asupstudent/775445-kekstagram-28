@@ -1,5 +1,5 @@
-const AVATAR_SIZE = 35;
 const COMMENT_COUNT = 5;
+const AVATAR_SIZE = 35;
 
 const commentList = document.querySelector('.social__comments');
 const currentCounterElement = document.querySelector('.comments-current');
@@ -37,7 +37,7 @@ const addComment = (comment) => {
 const calcCounterLoadedComments = (marker, length) => marker > length ? length : marker;
 
 //Скрыть кнопку загрузки скрытых комментариев (Загрузить еще)
-const hideMoreButton = () => {
+const hideLoadMoreButton = () => {
   document.querySelector('.comments-loader').classList.add('hidden');
 };
 
@@ -54,7 +54,7 @@ const onLoadMore = (items) => (evt) => {
   currentCounterElement.textContent = calcCounterLoadedComments(marker, items.length);
 
   if(marker >= items.length) {
-    hideMoreButton();
+    hideLoadMoreButton();
   }
 };
 
@@ -63,7 +63,7 @@ const renderVisibleComments = (comments) => {
   comments.forEach((comment) => {
     addComment(comment);
   });
-  hideMoreButton();
+  hideLoadMoreButton();
   currentCounterElement.textContent = comments.length;
 };
 
@@ -88,16 +88,16 @@ const renderComments = (comments) => {
 };
 
 //Отобразить полную информацию о фотографии
-export const renderItemDetails = (data, target) => {
-  const {comments, description, likes, url} = data;
+export const renderItemDetails = (item, outputContainer) => {
+  const {comments, description, likes, url} = item;
 
-  const bigImage = target.querySelector('.big-picture__img img');
+  const bigImage = outputContainer.querySelector('.big-picture__img img');
   bigImage.src = url;
   bigImage.alt = description;
 
-  target.querySelector('.social__caption').textContent = description;
-  target.querySelector('.likes-count').textContent = likes;
-  target.querySelector('.comments-count').textContent = comments.length;
+  outputContainer.querySelector('.social__caption').textContent = description;
+  outputContainer.querySelector('.likes-count').textContent = likes;
+  outputContainer.querySelector('.comments-count').textContent = comments.length;
 
   renderComments(comments);
 };
