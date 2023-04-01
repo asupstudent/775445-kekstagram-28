@@ -19,9 +19,9 @@ export const checkLength = (array, maxLength) => array.length <= maxLength;
 
 // Функция для проверки на уникальные значения в массиве
 export const checkRepeats = (array) => {
-  const itemsUpperCase = array.map((item) => item.toUpperCase());
-  const arrayNoRepeats = new Set(itemsUpperCase);
-  return arrayNoRepeats.size === itemsUpperCase.length;
+  const itemsInUpperCase = array.map((item) => item.toUpperCase());
+  const arrayNoRepeats = new Set(itemsInUpperCase);
+  return arrayNoRepeats.size === itemsInUpperCase.length;
 };
 
 //Функция проверки нажатой клавиши Esc

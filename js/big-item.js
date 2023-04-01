@@ -2,7 +2,7 @@ const COMMENT_COUNT = 5;
 const AVATAR_SIZE = 35;
 
 const commentList = document.querySelector('.social__comments');
-const currentCounterElement = document.querySelector('.comments-current');
+const counterRenderedCommentsElement = document.querySelector('.comments-current');
 
 //Создать комментарий
 const createComment = (comment) => {
@@ -51,7 +51,7 @@ const onLoadMore = (items) => (evt) => {
   });
   marker += COMMENT_COUNT;
 
-  currentCounterElement.textContent = calcCounterLoadedComments(marker, items.length);
+  counterRenderedCommentsElement.textContent = calcCounterLoadedComments(marker, items.length);
 
   if(marker >= items.length) {
     hideLoadMoreButton();
@@ -64,7 +64,7 @@ const renderVisibleComments = (comments) => {
     addComment(comment);
   });
   hideLoadMoreButton();
-  currentCounterElement.textContent = comments.length;
+  counterRenderedCommentsElement.textContent = comments.length;
 };
 
 //Отобразить скрытые комментарии
@@ -72,7 +72,7 @@ const renderInvisibleComments = (comments) => {
   comments.slice(0, COMMENT_COUNT).forEach((comment) => {
     addComment(comment);
   });
-  currentCounterElement.textContent = calcCounterLoadedComments(commentList.childNodes.length, comments.length);
+  counterRenderedCommentsElement.textContent = calcCounterLoadedComments(commentList.childNodes.length, comments.length);
   document.querySelector('.comments-loader').addEventListener('click', onLoadMore(comments));
 };
 
