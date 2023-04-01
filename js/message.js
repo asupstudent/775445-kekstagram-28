@@ -11,7 +11,7 @@ export const checkTypeMessage = () => document.querySelector('.success, .error')
 const onMessageEscapeKeydown = (evt) => {
   if (isEscapeKey(evt) && checkTypeMessage()) {
     evt.preventDefault();
-    closeMessage();
+    closeMessageBox();
   }
 };
 
@@ -19,12 +19,12 @@ const onMessageEscapeKeydown = (evt) => {
 const onMessageOutsideClick = (evt) => {
   const messageElement = checkTypeMessage();
   if (evt.target === messageElement) {
-    closeMessage();
+    closeMessageBox();
   }
 };
 
 //Функция закрытия окна, удаляем обработчики и сам эелемент
-function closeMessage () {
+function closeMessageBox () {
   document.removeEventListener('keydown', onMessageEscapeKeydown);
   document.removeEventListener('click', onMessageOutsideClick);
   const messageElement = checkTypeMessage();
@@ -34,13 +34,13 @@ function closeMessage () {
 }
 
 //Открыть инофрмационное окно и добавить обработчики
-export const openMessage = (typeMessage) => {
+export const openMessageBox = (typeMessage) => {
   const message = typeMessage === 'success' ? successMessageTemplate.cloneNode(true) : errorMessageTemplate.cloneNode(true);
   const messageButton = message.querySelector(`.${typeMessage}__button`);
   document.body.append(message);
 
   messageButton.addEventListener('click', () => {
-    closeMessage();
+    closeMessageBox();
   });
 
   document.addEventListener('keydown', onMessageEscapeKeydown);

@@ -1,6 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 
-const ALERT_STYLES = {
+const alertStyles = {
   zIndex : '100',
   position : 'absolute',
   left : '0',
@@ -11,7 +11,7 @@ const ALERT_STYLES = {
   lineHeight : '36px',
   textAlign : 'center',
   backgroundColor : '#232321',
-  color: '#ffffff'
+  color: '#ffffff',
 };
 
 //Функция для проверки длины строки.
@@ -36,7 +36,7 @@ export const removeLastCharacter = (string) => string ? string.slice(0, -1) : st
 // Функция для вывода окна с сообщением
 export const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  Object.assign(alertContainer.style, ALERT_STYLES);
+  Object.assign(alertContainer.style, alertStyles);
   alertContainer.textContent = message;
   document.body.append(alertContainer);
 
