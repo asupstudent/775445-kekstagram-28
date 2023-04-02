@@ -47,7 +47,9 @@ const createLoadMoreButton = () => {
 
 //Скрыть кнопку загрузки скрытых комментариев (Загрузить еще)
 const hideLoadMoreButton = () => {
-  document.querySelector('.comments-loader').classList.add('hidden');
+  if (document.querySelector('.comments-loader') !== null) {
+    document.querySelector('.comments-loader').classList.add('hidden');
+  }
 };
 
 //Фунция обратного вызова для обработки загрузки скрытых комментариев
@@ -82,7 +84,9 @@ const renderInvisibleComments = (comments) => {
     addComment(comment);
   });
   counterRenderedCommentsElement.textContent = calcCounterLoadedComments(commentList.childNodes.length, comments.length);
-  createLoadMoreButton();
+  if (document.querySelector('.comments-loader') === null) {
+    createLoadMoreButton();
+  }
   document.querySelector('.comments-loader').addEventListener('click', onLoadMore(comments));
 };
 
