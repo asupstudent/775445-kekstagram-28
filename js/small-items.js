@@ -26,16 +26,20 @@ export const renderSmallItems = (items) => {
   let newItems = items.slice();
   const activeFilterButtonElement = filterSectionElement.querySelector('.img-filters__button--active').id;
   const currentItemsElement = itemsContainerElement.querySelectorAll('.picture');
+
   if(activeFilterButtonElement === 'filter-random') {
     newItems = filterRandom(newItems);
   } else if(activeFilterButtonElement === 'filter-discussed') {
     newItems = sortByMostDiscussed(newItems);
   }
+
   currentItemsElement.forEach((item) => item.remove());
+
   const fragmentSmallItemsElement = document.createDocumentFragment();
   newItems.forEach((item) => {
     const element = createSmallItem(item);
     fragmentSmallItemsElement.append(element);
   });
+
   itemsContainerElement.append(fragmentSmallItemsElement);
 };

@@ -22,6 +22,7 @@ const onMessageOutsideClick = (evt) => {
 function closeMessageBox () {
   document.removeEventListener('keydown', onMessageEscKeydown);
   document.removeEventListener('click', onMessageOutsideClick);
+
   const messageElement = checkTypeMessage();
   if (messageElement) {
     messageElement.remove();
