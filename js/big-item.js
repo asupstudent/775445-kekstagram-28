@@ -1,79 +1,108 @@
-const commentList = document.querySelector('.social__comments');
-const loadingMoreElement = document.querySelector('.comments-loader');
-const currentCounterElement = document.querySelector('.comments-current');
 const COMMENT_COUNT = 5;
-let commentMarker = COMMENT_COUNT;
-let itemComments; //ВРЕМЕННО itemComments, БУДЕМ ПЕРЕДЕЛЫВАТЬ
+const AVATAR_SIZE = 35;
+
+const commentListElement = document.querySelector('.social__comments');
+const counterRenderedCommentsElement = document.querySelector('.comments-current');
 
 const createComment = (comment) => {
   const {avatar, name, message} = comment;
+
   const commentLiElement = document.createElement('li');
   commentLiElement.classList.add('social__comment');
+
   const commentImageElement = document.createElement('img');
   commentImageElement.classList.add('social__picture');
   commentImageElement.src = avatar;
   commentImageElement.alt = name;
-  commentImageElement.width = 35;
-  commentImageElement.height = 35;
+  commentImageElement.width = AVATAR_SIZE;
+  commentImageElement.height = AVATAR_SIZE;
+
   const commentParagraphElement = document.createElement('p');
   commentParagraphElement.classList.add('social__text');
   commentParagraphElement.textContent = message;
+
   commentLiElement.append(commentImageElement);
   commentLiElement.append(commentParagraphElement);
 
   return commentLiElement;
 };
 
-const renderComment = (comment) => {
-  commentList.append(createComment(comment));
+const addComment = (comment) => {
+  commentListElement.append(createComment(comment));
 };
 
-const loadedComments = (marker, length) => marker > length ? length : marker;
+const calcCounterLoadedComments = (marker, length) => marker > length ? length : marker;
 
-const onLoadMore = (evt) => {
-  evt.preventDefault();
-  itemComments.slice(commentMarker, commentMarker + COMMENT_COUNT).forEach((comment) => { //ВРЕМЕННО itemComments
-    renderComment(comment);
-  });
-  commentMarker = commentMarker + COMMENT_COUNT;
-  currentCounterElement.textContent = loadedComments(commentMarker, itemComments.length); //ВРЕМЕННО itemComments
+const createLoadMoreButton = () => {
+  const loadMoreButtonElement = document.createElement('button');
+  loadMoreButtonElement.setAttribute('type', 'button');
+  loadMoreButtonElement.classList.add('social__comments-loader');
+  loadMoreButtonElement.classList.add('comments-loader');
+  loadMoreButtonElement.textContent = 'Загрузить еще';
+  commentListElement.after(loadMoreButtonElement);
+};
 
-  if(commentMarker >= itemComments.length) { //ВРЕМЕННО itemComments
-    loadingMoreElement.classList.add('hidden');
+const hideLoadMoreButton = () => {
+  if (document.querySelector('.comments-loader') !== null) {
+    document.querySelector('.comments-loader').classList.add('hidden');
   }
+};
+
+const onLoadMoreButtonClick = (items) => (evt) => {
+  evt.preventDefault();
+
+  let marker = commentListElement.childNodes.length;
+  items.slice(marker, marker + COMMENT_COUNT).forEach((comment) => {
+    addComment(comment);
+  });
+  marker += COMMENT_COUNT;
+
+  counterRenderedCommentsElement.textContent = calcCounterLoadedComments(marker, items.length);
+
+  if(marker >= items.length) {
+    hideLoadMoreButton();
+  }
+};
+
+const renderVisibleComments = (comments) => {
+  comments.forEach((comment) => {
+    addComment(comment);
+  });
+  hideLoadMoreButton();
+  counterRenderedCommentsElement.textContent = comments.length;
+};
+
+const renderInvisibleComments = (comments) => {
+  comments.slice(0, COMMENT_COUNT).forEach((comment) => {
+    addComment(comment);
+  });
+  counterRenderedCommentsElement.textContent = calcCounterLoadedComments(commentListElement.childNodes.length, comments.length);
+  if (document.querySelector('.comments-loader') === null) {
+    createLoadMoreButton();
+  }
+  document.querySelector('.comments-loader').addEventListener('click', onLoadMoreButtonClick(comments));
 };
 
 const renderComments = (comments) => {
-  itemComments = comments; //ВРЕМЕННО itemComments
-  commentList.innerHTML = '';
+  commentListElement.innerHTML = '';
+
   if(comments.length <= COMMENT_COUNT) {
-    comments.forEach((comment) => {
-      renderComment(comment);
-    });
-    loadingMoreElement.classList.add('hidden');
-    currentCounterElement.textContent = comments.length;
+    renderVisibleComments(comments);
   } else {
-    comments.slice(0, COMMENT_COUNT).forEach((comment) => {
-      renderComment(comment);
-    });
-    currentCounterElement.textContent = loadedComments(commentMarker, comments.length);
-    loadingMoreElement.addEventListener('click', onLoadMore); //Возможно изменится
+    renderInvisibleComments(comments);
   }
 };
 
-export const resetComments = () => {
-  commentMarker = COMMENT_COUNT;
-  loadingMoreElement.classList.remove('hidden');
-  loadingMoreElement.removeEventListener('click', onLoadMore); //Возможно изменится
-};
+export const renderItemDetails = (item, outputContainer) => {
+  const {comments, description, likes, url} = item;
 
-export const renderItemDetails = (data, target) => {
-  const {comments, description, likes, url} = data;
-  const bigImage = target.querySelector('.big-picture__img img');
+  const bigImage = outputContainer.querySelector('.big-picture__img img');
   bigImage.src = url;
   bigImage.alt = description;
-  target.querySelector('.social__caption').textContent = description;
-  target.querySelector('.likes-count').textContent = likes;
-  target.querySelector('.comments-count').textContent = comments.length;
+
+  outputContainer.querySelector('.social__caption').textContent = description;
+  outputContainer.querySelector('.likes-count').textContent = likes;
+  outputContainer.querySelector('.comments-count').textContent = comments.length;
+
   renderComments(comments);
 };

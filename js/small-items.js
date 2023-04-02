@@ -1,31 +1,45 @@
-//Место куда будем добавлять элементы
-const itemsContainer = document.querySelector('.pictures');
-//Заготовка элемента для заполнения данными
-const itemTemplate = document.querySelector('#picture')
-  .content
-  .querySelector('.picture');
+import {filterRandom, sortByMostDiscussed} from './filter.js';
 
-//Функция создает элемент с данными
-const createSmallItem = (data) => {
-  const {id, url, description, likes, comments} = data;
-  const userItem = itemTemplate.cloneNode(true);
-  const userItemImg = userItem.querySelector('.picture__img');
-  userItemImg.src = url;
-  userItemImg.alt = description;
-  userItemImg.dataset.thumbnailId = id;
-  const userItemComments = userItem.querySelector('.picture__comments');
-  userItemComments.textContent = comments.length;
-  const userItemLikes = userItem.querySelector('.picture__likes');
-  userItemLikes.textContent = likes;
-  return userItem;
+const itemsContainerElement = document.querySelector('.pictures');
+const itemTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
+const filterSectionElement = document.querySelector('.img-filters');
+
+const createSmallItem = (item) => {
+  const {id, url, description, likes, comments} = item;
+
+  const previewItemElement = itemTemplateElement.cloneNode(true);
+  const previewItemImgElement = previewItemElement.querySelector('.picture__img');
+  previewItemImgElement.src = url;
+  previewItemImgElement.alt = description;
+  previewItemImgElement.dataset.thumbnailId = id;
+
+  const previewItemCommentsElement = previewItemElement.querySelector('.picture__comments');
+  previewItemCommentsElement.textContent = comments.length;
+
+  const previewItemLikesElement = previewItemElement.querySelector('.picture__likes');
+  previewItemLikesElement.textContent = likes;
+
+  return previewItemElement;
 };
 
-//Функция для создания и отрисовки элементов
 export const renderSmallItems = (items) => {
-  const fragment = document.createDocumentFragment();
-  items.forEach((item) => {
+  let newItems = items.slice();
+  const activeFilterButtonElement = filterSectionElement.querySelector('.img-filters__button--active').id;
+  const currentItemsElement = itemsContainerElement.querySelectorAll('.picture');
+
+  if(activeFilterButtonElement === 'filter-random') {
+    newItems = filterRandom(newItems);
+  } else if(activeFilterButtonElement === 'filter-discussed') {
+    newItems = sortByMostDiscussed(newItems);
+  }
+
+  currentItemsElement.forEach((item) => item.remove());
+
+  const fragmentSmallItemsElement = document.createDocumentFragment();
+  newItems.forEach((item) => {
     const element = createSmallItem(item);
-    fragment.append(element);
+    fragmentSmallItemsElement.append(element);
   });
-  itemsContainer.append(fragment);
+
+  itemsContainerElement.append(fragmentSmallItemsElement);
 };
