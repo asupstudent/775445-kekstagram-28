@@ -1,6 +1,6 @@
 import {initFormBigItem, showFormBigItem} from './form-big-item.js';
 
-const pictures = document.querySelector('.pictures');
+const picturesElement = document.querySelector('.pictures');
 
 export const initGallery = (items) => {
   initFormBigItem();
@@ -12,6 +12,6 @@ export const initGallery = (items) => {
       }
     }
   };
-  pictures.addEventListener('click', onPictureClick);
+  picturesElement.addEventListener('click', onPictureClick);
 };
 
