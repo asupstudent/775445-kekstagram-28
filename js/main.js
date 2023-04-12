@@ -1,3 +1,4 @@
+//ПРОЕКТ СДАЛ НА 100% С ПЕРВОГО РАЗА
 import {getData} from './api.js';
 import {initGallery} from './gallery.js';
 import {hideFormUpload, initFormUpload} from './form-upload.js';
